@@ -3,38 +3,67 @@ let path = require("path");
 
 let app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 app.set("views",path.join(__dirname,"views"));
 app.set("view engine","pug");
 
-let users = [{name:'arun'},{name:'vijay'},{name:'suhas'},{name:'ankur'}]
+let todos = [{
+  id: Math.floor(Math.random()*100),
+  title: 'create todos app',
+  completed: false
+},
+{
+  id: Math.floor(Math.random()*100),
+  title: 'fetch milk',
+  completed: false
+},
+{
+  id: Math.floor(Math.random()*100),
+  title: 'Water the garden',
+  completed: false
+}
+];
 
-
-// [['vijay,28'],['arun',22]].forEach((each) => {
-//
-//   users.push({
-//     name : each[0],
-//     age : each[1]
-//   })
-//
-// })
-// console.log(users)
-
-app.get("/",function(req,res){
+/*update*/
+app.put("/todos/:id",function(req,res){
+  console.log(req.params.id)
   res.render("index",{
-    title : req.query.message || 'default hey'
+    todos : req.query.message || 'default hey'
   })
 })
 
-app.get("/users",function(req,res){
-  res.send(users)
+/*delete*/
+app.delete("/todos/:id",function(req,res){
+  console.log(req.params.id)
+  console.log(req.body)
+  let todo = req.params.todoName
+  res.render("index",{
+    title : 'delete successful'
+  })
 })
 
-app.post("/users",function(req,res){
-  console.log(typeof req.body,req.body);
-  users.push({
-    name : req.body.name,
-  });
-  res.json(users);
+/*create*/
+app.post("/todos",function(req,res){
+  console.log(req.body)
+  let todo = {
+    id: Math.floor(Math.random()*100),
+    title:req.body.todo,
+    completed:false
+  };
+
+  todos.push(todo);
+  console.log(todos)
+  res.render("index",{
+    todos : todos || []
+  })
+})
+
+
+/*read*/
+app.get("/todos",function(req,res){
+  res.render("index",{
+    todos : todos || []
+  })
 })
 
 console.log("Running on port 3000")
