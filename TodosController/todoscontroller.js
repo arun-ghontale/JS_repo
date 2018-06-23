@@ -17,12 +17,12 @@ let todos = [
 ];
 
 const handlers = {
-  getTodos: function(req, res) {
+  index: function(req, res) {
     res.render("index", {
       todos: todos || []
     });
   },
-  postTodos: function(req, res) {
+  store: function(req, res) {
     // console.log(req.body);
     let todo = {
       id: Math.floor(Math.random() * 100),
@@ -34,7 +34,7 @@ const handlers = {
     // console.log(todos);
     res.redirect("/todos");
   },
-  deleteTodos: function(req, res) {
+  destroy: function(req, res) {
     // console.log("\n\n\n\n");
     // console.log(req.params.id);
     // console.log(req.body);
@@ -43,7 +43,7 @@ const handlers = {
     });
     res.redirect("/todos");
   },
-  putTodos: function(req, res) {
+  update: function(req, res) {
     // console.log(req.params.id);
     // console.log(req.body);
     todos = todos.map(todo => {

@@ -1,7 +1,7 @@
 let express = require("express");
 let path = require("path");
 let methodOverride = require("method-override");
-let todoscontroller = require("./TodosController/todoscontroller.js");
+let todosrouter = require("./Routes/todos.js");
 
 let app = express();
 
@@ -24,24 +24,25 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+app.use("/todos", todosrouter);
 
-/*update*/
-app.put("/todos/:id", todoscontroller.putTodos);
+// /*update*/
+// app.put("/todos/:id", todoscontroller.putTodos);
 
-/*delete*/
-app.delete("/todos/:id", todoscontroller.deleteTodos);
+// /*delete*/
+// app.delete("/todos/:id", todoscontroller.deleteTodos);
 
-/*create*/
-app.post("/todos", todoscontroller.postTodos);
+// /*create*/
+// app.post("/todos", todoscontroller.postTodos);
 
-/*read*/
-app.get("/todos", todoscontroller.getTodos);
+// /*read*/
+// app.get("/todos", todoscontroller.getTodos);
 
-// app.get("/todos", function(req, res) {
-//   res.render("index", {
-//     todos: todos || []
-//   });
-// });
+// // app.get("/todos", function(req, res) {
+// //   res.render("index", {
+// //     todos: todos || []
+// //   });
+// // });
 
 console.log("Running on port 3000");
 app.listen(3000);
