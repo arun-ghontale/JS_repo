@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 html(lang="en")
   head
-   meta(charset="UTF-8")
-   meta(name="viewport", content="width=device-width, initial-scale=1.0")
-   meta(http-equiv="X-UA-Compatible", content="ie=edge")
-   title 
-   ent
-   body
-    form(action="/todos",method = "POST")
-     input(type="text" name="todo")
-     button(type="submit") Add todo 
-     ul
-      if todos
-         each todo in todos
-             span(class = "todo-item")
-                 li= 'Todo : ' + todo.title
-                 input(type= "checkbox" checked= todo.completed id=todo.id)
-      else
-         li= "No todos left"
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title index-html
+    link(rel="stylesheet" href="/styles/main.css")  
+    link(rel="stylesheet" href="/styles/bootstrap.min.css")
+    //- //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    //- integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+    //- crossorigin="anonymous")
+    ent
+  body
+    div(class="container")
+      form(action="/todos",method = "POST")
+        input(type="text" name="todo" class="form-control")
+        button(type="submit" class="btn btn-info btn-sm") Add todo 
+      ul(class="list-group")
+        if todos
+          each todo in todos
+            span(class= "flex")
+              form(action="/todos/" + todo.id,method = "post")
+                input(name="_method" type="hidden" value="put")
+                span(class = "todo-item")
+                  li(class="list-group-item")= todo.title
+                  input(name="checkbox" type= "checkbox" checked= todo.completed id=todo.id)
+                  button(type="submit" class="btn btn-dark btn-sm") Update Todo
+                  
+              span(class : "todo-delete")
+                form(action="/todos/"+todo.id,method = "post")  
+                    input(name="_method" type="hidden" value="delete")
+                    button(type="submit" class="btn btn-warning btn-sm") delete todo
+
+        else
+          li= "No todos left"

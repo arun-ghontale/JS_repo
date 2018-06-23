@@ -1,0 +1,22 @@
+.todo-item {
+  display: flex;
+}
+
+.todo-item > li {
+  margin-right: 10px;
+}
+
+/* 
+.todo-item .li{
+  This will apply to all the children 
+  margin-right: 10px;
+} */
+
+.todo-delete {
+  display: flex;
+  margin-right: 10px;
+}
+
+.flex {
+  display: flex;
+}
